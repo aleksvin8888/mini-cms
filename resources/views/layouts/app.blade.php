@@ -43,14 +43,5 @@
             </main>
         </div>
 
-        <script>
-            $(document).ready(function() {
-                $('#companiesTable').DataTable({
-                    language: {
-                        url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/uk.json'
-                    }
-                });
-            });
-        </script>
     </body>
 </html>

@@ -25,3 +25,17 @@ setTimeout(() => {
         setTimeout(() => errorAlert.remove(), 500);
     }
 }, 3000);
+
+$(document).ready(function() {
+    $('#companiesTable').DataTable({
+       //
+    });
+});
+
+$(document).ready(function() {
+    $('#employeesTable').DataTable({
+        //
+    });
+});
+
+

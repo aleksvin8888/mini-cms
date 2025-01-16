@@ -19,7 +19,7 @@ class CompanyService
         DB::beginTransaction();
         try {
 
-            $company = Company::creat($data);
+            $company = Company::create($data);
 
             if (isset($data['logo'])) {
                 $this->setLogo($company, $data['logo']);

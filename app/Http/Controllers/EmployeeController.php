@@ -2,63 +2,84 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Facades\EmployeeServiceFacade;
+use App\Http\Requests\StoreEmployeeRequest;
+use App\Http\Requests\UpdateEmployeeRequest;
+use App\Models\Company;
+use App\Models\Employee;
+use Exception;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class EmployeeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    public function index(): View
     {
-        //
+        $employees = Employee::with(['company'])
+            ->orderBy('created_at', 'desc')
+            ->paginate(20);
+
+        return view('employees.index', compact('employees'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+
+    public function create(): View
     {
-        //
+        $companies = Company::select(['id', 'name'])->get();
+        return view('employees.create', compact('companies'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+
+    public function store(StoreEmployeeRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        try {
+            EmployeeServiceFacade::create($data);
+            return redirect()->route('employees.index')->with('success', 'The employee has been created!');
+
+        } catch (Exception $e) {
+            return redirect()->route('employees.index')->with('error', 'An error occurred while updating the company. Please try again.');
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+
+    public function show(Employee $employee): View
     {
-        //
+        return view('employees.show', compact('employee'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+
+    public function edit(Employee $employee): View
     {
-        //
+        $companies = Company::select(['id', 'name'])->get();
+        return view('employees.edit', compact('employee', 'companies'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+
+    public function update(UpdateEmployeeRequest $request, Employee $employee): RedirectResponse
     {
-        //
+        $data = $request->validated();
+
+        try {
+            EmployeeServiceFacade::update($employee, $data);
+            return redirect()->route('employees.index')->with('success', 'The employee has been updated!');
+
+        } catch (Exception $e) {
+            return redirect()->route('employees.index')->with('error', 'An error occurred while updating the company. Please try again.');
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+
+    public function destroy(Employee $employee): RedirectResponse
     {
-        //
+        try {
+            EmployeeServiceFacade::delete($employee);
+            return redirect()->route('employees.index')->with('success', 'The employee has been deleted deleted!');
+
+        } catch (Exception $e) {
+            return redirect()->route('employees.index')->with('error', 'An error occurred while updating the company. Please try again.');
+        }
     }
 }

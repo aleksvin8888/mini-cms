@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Services\CompanyService;
+use App\Services\EmployeeService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -16,6 +17,9 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton('companyService', function () {
             return new CompanyService;
+        });
+        $this->app->singleton('employeeService', function () {
+            return new EmployeeService;
         });
     }
 

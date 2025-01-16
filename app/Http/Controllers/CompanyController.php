@@ -71,7 +71,13 @@ class CompanyController extends Controller
 
     public function destroy(Company $company): RedirectResponse
     {
-        CompanyServiceFacade::delete($company);
-        return redirect()->route('companies.index');
+        try {
+            CompanyServiceFacade::delete($company);
+            return redirect()->route('companies.index')->with('success', 'The company has been deleted updated!');
+
+        } catch (Exception $e) {
+            return redirect()->route('companies.index')->with('error', 'An error occurred while updating the company. Please try again.');
+        }
+
     }
 }
