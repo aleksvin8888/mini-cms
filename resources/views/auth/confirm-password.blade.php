@@ -1,27 +1,32 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
-        {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
-    </div>
+@extends('adminlte::auth.auth-page', ['auth_type' => 'login'])
 
-    <form method="POST" action="{{ route('password.confirm') }}">
+@section('auth_header', 'Confirm Password')
+
+@section('auth_body')
+    <p class="text-muted">
+        {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
+    </p>
+
+    <form action="{{ route('password.confirm') }}" method="POST">
         @csrf
 
-        <!-- Password -->
-        <div>
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        <!-- Password Field -->
+        <div class="form-group">
+            <label for="password">{{ __('Password') }}</label>
+            <input type="password" name="password" id="password"
+                   class="form-control @error('password') is-invalid @enderror"
+                   required autocomplete="current-password">
+            @error('password')
+            <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
         </div>
 
-        <div class="flex justify-end mt-4">
-            <x-primary-button>
-                {{ __('Confirm') }}
-            </x-primary-button>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">
+                <i class="fas fa-lock"></i> {{ __('Confirm') }}
+            </button>
         </div>
     </form>
-</x-guest-layout>
+@stop

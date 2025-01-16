@@ -19,7 +19,7 @@ class EmployeeController extends Controller
     {
         $employees = Employee::with(['company'])
             ->orderBy('created_at', 'desc')
-            ->paginate(20);
+            ->paginate(10);
 
         return view('employees.index', compact('employees'));
     }

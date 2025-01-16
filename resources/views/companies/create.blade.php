@@ -1,63 +1,58 @@
+@extends('adminlte::page')
 
-<x-app-layout>
-    <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                Create Company
-            </h2>
-            <a href="{{ route('companies.index') }}" class="ml-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                Back to Companies
-            </a>
-        </div>
-    </x-slot>
+@section('title', 'Create Company')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <form action="{{ route('companies.store') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
+@section('content_header')
+    <div class="d-flex justify-content-between align-items-center">
+        <h1>Create Company</h1>
+        <a href="{{ route('companies.index') }}" class="btn btn-primary">
+            <i class="fas fa-arrow-left"></i> Back to Companies
+        </a>
+    </div>
+@stop
 
-                        <div class="mb-4">
-                            <label for="name" class="block text-sm font-medium text-blue-500">Назва компанії</label>
-                            <input type="text" name="name" id="name" value="{{ old('name') }}" class="mt-1 block w-full rounded-md  border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-black">
-                            @error('name')
-                            <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
-                            @enderror
-                        </div>
+@section('content')
+    <div class="card">
+        <div class="card-body">
+            <form action="{{ route('companies.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
 
-                        <div class="mb-4">
-                            <label for="email" class="block text-sm font-medium text-blue-500">Email</label>
-                            <input type="email" name="email" id="email" value="{{ old('email') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-black">
-                            @error('email')
-                            <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="url" class="block text-sm font-medium text-blue-500">URL</label>
-                            <input type="url" name="url" id="url" value="{{ old('url') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-black">
-                            @error('url')
-                            <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="logo" class="block text-sm font-medium text-blue-500">Logo</label>
-                            <input type="file" name="logo" id="logo" class="mt-1 block w-full">
-                            @error('logo')
-                            <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="mt-6">
-                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                Save
-                            </button>
-                        </div>
-                    </form>
+                <div class="form-group">
+                    <label for="name" class="form-label">Назва компанії</label>
+                    <input type="text" name="name" id="name" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror">
+                    @error('name')
+                    <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
                 </div>
-            </div>
+
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" name="email" id="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror">
+                    @error('email')
+                    <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="url" class="form-label">URL</label>
+                    <input type="url" name="url" id="url" value="{{ old('url') }}" class="form-control @error('url') is-invalid @enderror">
+                    @error('url')
+                    <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="logo" class="form-label">Logo</label>
+                    <input type="file" name="logo" id="logo" class="form-control @error('logo') is-invalid @enderror">
+                    @error('logo')
+                    <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary"> <i class="fas fa-save"></i> Save</button>
+                </div>
+            </form>
         </div>
     </div>
-</x-app-layout>
+@stop
