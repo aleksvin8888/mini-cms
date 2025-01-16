@@ -22,4 +22,13 @@ class Company extends Model
     {
         return $this->hasMany(Employee::class, 'company_id');
     }
+
+    public function getLogoAttribute(): string
+    {
+        if ($this->logo_path) {
+            return asset('storage/' . $this->logo_path);
+        }
+
+        return asset('img/temp_logo.jpg');
+    }
 }
