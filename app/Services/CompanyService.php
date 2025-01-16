@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
 use App\Models\Company;
@@ -10,7 +12,6 @@ use Illuminate\Support\Facades\Storage;
 
 class CompanyService
 {
-
     /**
      * @throws Exception
      */
@@ -109,5 +110,4 @@ class CompanyService
             throw new Exception($exception->getMessage(), 500, $exception);
         }
     }
-
 }

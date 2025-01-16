@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Facades\EmployeeServiceFacade;
@@ -13,7 +15,6 @@ use Illuminate\View\View;
 
 class EmployeeController extends Controller
 {
-
     public function index(): View
     {
         $employees = Employee::with(['company'])
@@ -23,13 +24,12 @@ class EmployeeController extends Controller
         return view('employees.index', compact('employees'));
     }
 
-
     public function create(): View
     {
         $companies = Company::select(['id', 'name'])->get();
+
         return view('employees.create', compact('companies'));
     }
-
 
     public function store(StoreEmployeeRequest $request)
     {
@@ -37,6 +37,7 @@ class EmployeeController extends Controller
 
         try {
             EmployeeServiceFacade::create($data);
+
             return redirect()->route('employees.index')->with('success', 'The employee has been created!');
 
         } catch (Exception $e) {
@@ -44,19 +45,17 @@ class EmployeeController extends Controller
         }
     }
 
-
     public function show(Employee $employee): View
     {
         return view('employees.show', compact('employee'));
     }
 
-
     public function edit(Employee $employee): View
     {
         $companies = Company::select(['id', 'name'])->get();
+
         return view('employees.edit', compact('employee', 'companies'));
     }
-
 
     public function update(UpdateEmployeeRequest $request, Employee $employee): RedirectResponse
     {
@@ -64,6 +63,7 @@ class EmployeeController extends Controller
 
         try {
             EmployeeServiceFacade::update($employee, $data);
+
             return redirect()->route('employees.index')->with('success', 'The employee has been updated!');
 
         } catch (Exception $e) {
@@ -71,11 +71,11 @@ class EmployeeController extends Controller
         }
     }
 
-
     public function destroy(Employee $employee): RedirectResponse
     {
         try {
             EmployeeServiceFacade::delete($employee);
+
             return redirect()->route('employees.index')->with('success', 'The employee has been deleted deleted!');
 
         } catch (Exception $e) {

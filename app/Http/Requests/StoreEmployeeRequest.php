@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -74,5 +76,4 @@ class StoreEmployeeRequest extends FormRequest
             'company_id.exists' => 'The selected company does not exist.',
         ];
     }
-
 }

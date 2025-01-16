@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -65,5 +67,4 @@ class StoreCompanyRequest extends FormRequest
             'logo.dimensions' => 'The logo must be at least 100x100 pixels.',
         ];
     }
-
 }

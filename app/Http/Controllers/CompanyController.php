@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Facades\CompanyServiceFacade;
@@ -12,21 +14,19 @@ use Illuminate\View\View;
 
 class CompanyController extends Controller
 {
-
     public function index(): View
     {
         $companies = Company::with(['employees'])
             ->orderBy('created_at', 'desc')
             ->paginate(10);
+
         return view('companies.index', compact('companies'));
     }
-
 
     public function create(): View
     {
         return view('companies.create');
     }
-
 
     public function store(StoreCompanyRequest $request): RedirectResponse
     {
@@ -41,13 +41,12 @@ class CompanyController extends Controller
         }
     }
 
-
     public function show(Company $company): View
     {
         $company->loadCount('employees');
+
         return view('companies.show', compact('company'));
     }
-
 
     public function edit(Company $company): View
     {
@@ -68,11 +67,11 @@ class CompanyController extends Controller
 
     }
 
-
     public function destroy(Company $company): RedirectResponse
     {
         try {
             CompanyServiceFacade::delete($company);
+
             return redirect()->route('companies.index')->with('success', 'The company has been deleted updated!');
 
         } catch (Exception $e) {
