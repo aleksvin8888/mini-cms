@@ -31,7 +31,7 @@ class StoreCompanyRequest extends FormRequest
                 'max:255',
             ],
             'email' => [
-                'nullable',
+                'required',
                 'email:rfc,dns,spoof',
                 'max:255',
             ],

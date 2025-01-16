@@ -1,9 +1,8 @@
-
 <!doctype html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>{{config("app.name")}}</title>
 </head>
 <body style=" margin: 0;
@@ -23,10 +22,11 @@
             line-height: 32px;
             text-align: left;
             color: #1e1f22;">
-                A new company has been created:
+                Welcome to the: {{config("app.name")}}
             </h2>
         </td>
-
+    </tr>
+    <tr>
         <td style="padding: 40px;">
             <p style=" margin-bottom: 16px;
             font-family: Inter, Arial, sans-serif;
@@ -44,6 +44,8 @@
             color: #1e1f22;">Email: {{$companyEmail}} </p>
 
         </td>
+
+    </tr>
 </table>
 </body>
 </html>
